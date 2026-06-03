@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EthelTon Tech Hub | Front-End Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:          #080D1A;
+      --bg-card:     #0D1526;
+      --blue:        #2B6EFF;
+      --blue-mid:    #1a5ce6;
+      --blue-dim:    rgba(43,110,255,0.12);
+      --blue-border: rgba(43,110,255,0.22);
+      --grey:        #8A99B4;
+      --grey-light:  #CBD5E1;
+      --white:       #F1F5F9;
+      --radius-lg:   1.4rem;
+      --radius-xl:   2rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(43,110,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43,110,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 1.6rem 0 1.4rem;
+      border-bottom: 1px solid var(--blue-border);
+      margin-bottom: 5rem;
+    }
+
+    .logo-wrapper { display: flex; align-items: center; gap: 1rem; }
+
+    .logo-frame {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--blue-border);
+      background: rgba(43,110,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ----- LOGO IMAGE SPOT ----- */
+    .business-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* ↑↑↑ INSERT YOUR LOGO IMAGE HERE ↑↑↑ */
+
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      background: linear-gradient(120deg, #fff 40%, var(--grey));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--blue);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--grey-light);
+    }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    /* hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 5rem;
+    }
+
+    .hero-left { display: flex; flex-direction: column; gap: 1.4rem; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      border-left: 3px solid var(--blue);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--grey-light);
+      width: fit-content;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #fff 50%, var(--grey));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--grey);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 0.4rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.6rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -6px rgba(43,110,255,0.5);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--grey-light);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.75rem 1.6rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--blue-border); color: #fff; }
+
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      padding-top: 0.5rem;
+    }
+
+    .stat-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.4rem;
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .stat-pill .num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .stat-pill .lbl {
+      font-size: 0.72rem;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--blue-border), transparent);
+      margin: 4rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .section-header p {
+      font-size: 0.85rem;
+      color: var(--grey);
+    }
+
+    /* offer banner */
+    .offer-banner {
+      background: linear-gradient(130deg, #0D1A38 0%, var(--bg-card) 100%);
+      border: 1px solid var(--blue);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 5rem;
+    }
+
+    .offer-banner::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(43,110,255,0.18), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .offer-tag {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(43,110,255,0.2);
+      border: 1px solid var(--blue);
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #7aabff;
+      margin-bottom: 0.8rem;
+    }
+
+    .price {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .price span { font-size: 1.1rem; font-weight: 400; color: var(--grey); margin-left: 4px; }
+
+    .offer-desc {
+      font-size: 0.9rem;
+      color: var(--grey);
+      margin: 0.8rem 0 1.2rem;
+      max-width: 420px;
+    }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--grey-light);
+    }
+
+    .contact-box {
+      background: rgba(5,10,20,0.6);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.8rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .wa-num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .contact-box small {
+      display: block;
+      color: var(--grey);
+      font-size: 0.74rem;
+      margin-top: 0.4rem;
+    }
+
+    /* services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1px;
+      background: var(--blue-border);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 5rem;
+    }
+
+    .service-item {
+      background: var(--bg-card);
+      padding: 2rem 1.6rem;
+      transition: background 0.25s;
+    }
+
+    .service-item:hover { background: #101b35; }
+
+    .svc-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+      line-height: 1;
+    }
+
+    .service-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .service-item p { font-size: 0.84rem; color: var(--grey); line-height: 1.6; }
+
+    /* why grid */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 5rem;
+    }
+
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .why-card:hover { border-color: rgba(43,110,255,0.5); transform: translateY(-3px); }
+
+    .why-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #fff;
+    }
+
+    .why-card p { font-size: 0.82rem; color: var(--grey); line-height: 1.6; }
+
+    .why-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    /* credentials - image placeholders */
+    .creds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 5rem;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .cert-card:hover { border-color: rgba(43,110,255,0.5); transform: translateY(-3px); }
+
+    .cert-img {
+      width: 100%;
+      height: 160px;
+      background: #101b35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--blue-border);
+    }
+    /* ----- CERTIFICATION IMAGE PLACEHOLDERS ----- */
+    /* Each .cert-img is where you put your certificate screenshots */
+
+    .cert-body { padding: 1.2rem 1.4rem; }
+    .cert-body h4 { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+    .cert-body p { font-size: 0.8rem; color: var(--grey); }
+
+    .cert-tag {
+      display: inline-block;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #7aabff;
+      margin-top: 0.7rem;
+    }
+
+    /* project card (no image) */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: border-color 0.3s;
+      margin-bottom: 5rem;
+    }
+
+    .project-card:hover { border-color: rgba(43,110,255,0.5); }
+
+    .project-preview {
+      width: 100%;
+      height: 220px;
+      background: #060c18;
+      border-bottom: 1px solid var(--blue-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-placeholder {
+      text-align: center;
+      color: var(--grey);
+    }
+    .preview-placeholder i {
+      font-size: 3rem;
+      color: var(--blue);
+      opacity: 0.5;
+      margin-bottom: 0.8rem;
+      display: inline-block;
+    }
+
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,13,26,0.7) 0%, transparent 40%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .live-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(43,110,255,0.9);
+      color: #fff;
+      padding: 0.55rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s;
+    }
+
+    .live-btn:hover { background: var(--blue); }
+
+    .project-meta {
+      padding: 1.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+
+    .project-meta h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-meta p { font-size: 0.85rem; color: var(--grey); max-width: 460px; }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    .project-link:hover { opacity: 0.75; }
+
+    /* cta block */
+    .cta-block {
+      background: linear-gradient(130deg, #0D1A38, var(--bg-card));
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-xl);
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 200px;
+      background: radial-gradient(ellipse, rgba(43,110,255,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-block h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-block p { font-size: 1rem; color: var(--grey); margin-bottom: 2rem; }
+    .cta-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+
+    /* contact bar */
+    .contact-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--blue-border);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-item {
+      background: var(--bg-card);
+      padding: 1.6rem 1.8rem;
+    }
+
+    .ci-label {
+      font-size: 0.7rem;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 4px;
+    }
+
+    .ci-value {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--blue-border);
+      font-size: 0.8rem;
+      color: var(--grey);
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; }
+      .stat-pill { min-width: 120px; flex: 1; }
+      .offer-banner { grid-template-columns: 1fr; }
+      .project-preview { height: 180px; }
+      .project-meta { padding: 1.4rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 1.2rem 3rem; }
+      .hero-headline { font-size: 2.2rem; }
+      .price { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ==================== NAVBAR (LOGO SPOT) ==================== -->
+  <nav class="navbar">
+    <div class="logo-wrapper">
+      <div class="logo-frame">
+        <!-- *** INSERT YOUR BUSINESS LOGO HERE *** -->
+        <!-- Replace the src with your actual logo image path -->
+        <img class="business-logo" src="i want a logo for my tech company ETHEL-TON TECH HUB but i just want it to display E-T with some techy stuff but also make it professional and cool (1).jpg" alt="EthelTon Tech Hub Logo">
+      </div>
+      <div>
+        <div class="brand-name">EthelTon Tech Hub</div>
+        <div class="brand-sub">Front-End Developer</div>
+      </div>
+    </div>
+    <div class="nav-pill">
+      <span class="status-dot"></span>
+      Available for projects
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="eyebrow">★ Premium Front-End · Minimal Pricing</span>
+      <h1 class="hero-headline">Websites that<br>steal the show.</h1>
+      <p class="hero-sub">Custom HTML/CSS/JS, futuristic design, grey &amp; blue signature — built for small businesses, artists, and visionaries across South Africa and beyond.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="heroWaBtn">WhatsApp Me</button>
+        <a href="tel:+27687661500" class="btn-ghost">068 766 1500</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <div class="num">R200</div>
+        <div class="lbl">Starter Pack</div>
+      </div>
+      <div class="stat-pill">
+        <div class="num">5</div>
+        <div class="lbl">Pages Included</div>
+      </div>
+      <div class="stat-pill">
+        <div class="num">3+</div>
+        <div class="lbl">Certifications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER BANNER -->
+  <div class="offer-banner">
+    <div>
+      <div class="offer-tag">Limited Starter Pack</div>
+      <div class="price">R200 <span>/ starter website</span></div>
+      <p class="offer-desc">One-time fee · responsive website up to 5 pages · contact form · mobile-perfect · grey/blue color scheme · your logo included.</p>
+      <div class="chip-row">
+        <span class="chip">3–5 pages</span>
+        <span class="chip">Fully responsive</span>
+        <span class="chip">Your logo included</span>
+        <span class="chip">2 revision rounds</span>
+      </div>
+    </div>
+    <div class="contact-box">
+      <div class="wa-num">+27 68 766 1500</div>
+      <small>call / WhatsApp business line</small>
+      <button class="btn-primary" id="offerWaBtn" style="margin-top:1rem; width:100%; justify-content:center;">Book Now</button>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section-header">
+    <h2>What I Build</h2>
+    <p>Exclusive front-end development</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-item"><span class="svc-icon">✨</span><h3>Artist / Music</h3><p>Portfolio sites for musicians, umhadi artists &amp; bands. Video integration, event section.</p></div>
+    <div class="service-item"><span class="svc-icon">💈</span><h3>Hair Stylist</h3><p>Gallery-first design, before/after grids, booking-ready layouts. Showcase your craft.</p></div>
+    <div class="service-item"><span class="svc-icon">🏢</span><h3>Business Landing</h3><p>High-impact corporate, service or product pages with conversion-focused sections.</p></div>
+    <div class="service-item"><span class="svc-icon">⚡</span><h3>Interactive UI</h3><p>Custom JS micro-interactions, smooth scroll, dark grey &amp; blue signature aesthetic.</p></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WHY SECTION -->
+  <div class="section-header"><h2>Why EthelTon Tech Hub</h2><p>What sets the work apart</p></div>
+  <div class="why-grid">
+    <div class="why-card"><span class="why-label">Performance</span><h4>Lightning Fast</h4><p>Clean, lean code — no bloated frameworks. Sites load fast and score high on performance.</p></div>
+    <div class="why-card"><span class="why-label">Security</span><h4>Free SSL &amp; Hosting Help</h4><p>Guidance on deploying and securing your site at no extra cost. Go live with confidence.</p></div>
+    <div class="why-card"><span class="why-label">Mobile</span><h4>Pixel-Perfect Mobile</h4><p>Every layout is tested and refined for phones first. Your clients browse on mobile — so we build for it.</p></div>
+    <div class="why-card"><span class="why-label">Design</span><h4>Signature Grey &amp; Blue</h4><p>A refined, futuristic aesthetic that elevates your brand and sets you apart from generic templates.</p></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== CERTIFICATIONS SECTION ==================== -->
+  <div class="section-header">
+    <h2>Qualifications &amp; Credentials</h2>
+    <p>Verified industry certifications</p>
+  </div>
+  <div class="creds-grid">
+    
+    <!-- Cisco Cybersecurity Certificate -->
+    <div class="cert-card">
+      <div class="cert-img">
+        <!-- *** INSERT YOUR CISCO CYBERSECURITY CERTIFICATE IMAGE HERE *** -->
+        <!-- Replace src with your actual certificate image file -->
+        <img src="qualifications/IMG-20260603-WA0021.jpg" alt="Cisco Cybersecurity Certificate" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="cert-body">
+        <h4>Introduction to Cybersecurity</h4>
+        <p>Cisco Networking Academy · Apr 2026</p>
+        <span class="cert-tag">Cisco Verified</span>
+      </div>
+    </div>
+
+    <!-- freeCodeCamp JavaScript Certificate -->
+    <div class="cert-card">
+      <div class="cert-img">
+        <!-- *** INSERT YOUR JAVASCRIPT CERTIFICATE IMAGE HERE *** -->
+        <img src="qualifications/javascript.jpg" alt="JavaScript Certificate" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="cert-body">
+        <h4>JavaScript Development</h4>
+        <p>freeCodeCamp · May 2026</p>
+        <span class="cert-tag">JS Certified</span>
+      </div>
+    </div>
+
+    <!-- freeCodeCamp Responsive Web Design Certificate -->
+    <div class="cert-card">
+      <div class="cert-img">
+        <!-- *** INSERT YOUR RESPONSIVE WEB DESIGN CERTIFICATE IMAGE HERE *** -->
+        <img src="qualifications/responsive webdesign.jpg" alt="Responsive Web Design Certificate" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="cert-body">
+        <h4>Responsive Web Design</h4>
+        <p>freeCodeCamp · Apr 2026</p>
+        <span class="cert-tag">RWD Certified</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== RECENT PROJECTS (NO IMAGE PREVIEW) ==================== -->
+  <div class="section-header">
+    <h2>Recent Projects</h2>
+    <p>Live work, real clients</p>
+  </div>
+  <div class="project-card">
+    <div class="project-preview">
+      <div class="preview-placeholder">
+        <i class="fas fa-microphone-alt"></i>
+        <p>TymtrendzKorner · Talk Your Mind Podcast</p>
+        <small style="color: #5a6e8a;">(Preview image not required)</small>
+      </div>
+    </div>
+    <div class="project-meta">
+      <div>
+        <h3>TymtrendzKorner</h3>
+        <p>Youth empowerment platform &amp; flagship podcast hub for Talk Your Mind · Ngqeleni, Eastern Cape. Features episode listings, local talents showcase, and a community advice section.</p>
+        <div class="chip-row" style="margin-top:0.9rem;">
+          <span class="chip">Podcast Platform</span>
+          <span class="chip">Responsive</span>
+          <span class="chip">HTML / CSS / JS</span>
+        </div>
+      </div>
+      <a class="project-link" href="https://tymtrendzkorner.netlify.app/" target="_blank" rel="noopener">
+        tymtrendzkorner.netlify.app →
+      </a>
+    </div>
+  </div>
+
+  <!-- CTA BLOCK -->
+  <div class="cta-block">
+    <div class="eyebrow" style="margin: 0 auto 1.5rem;">Ready to build?</div>
+    <h2>Let's create your website.</h2>
+    <p>Professional front-end websites, no hidden fees. You provide the logo &amp; content — I build the rest.</p>
+    <div class="cta-actions">
+      <button class="btn-primary" id="ctaWaBtn">Book via WhatsApp</button>
+      <a href="tel:+27687661500" class="btn-ghost">Call 068 766 1500</a>
+    </div>
+  </div>
+
+  <!-- CONTACT BAR -->
+  <div class="contact-bar">
+    <div class="contact-item"><div class="ci-label">WhatsApp / Call</div><div class="ci-value">+27 68 766 1500</div></div>
+    <div class="contact-item"><div class="ci-label">Email</div><div class="ci-value">ethelton@techhub.co.za</div></div>
+    <div class="contact-item"><div class="ci-label">Location</div><div class="ci-value">South Africa · Remote</div></div>
+    <div class="contact-item"><div class="ci-label">Credentials</div><div class="ci-value">Cisco · JS · RWD</div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>© 2026 EthelTon Tech Hub — Grey &amp; Blue signature front-end solutions.</div>
+    <div>Crafted with HTML / CSS / JS</div>
+  </footer>
+
+</div>
+
+<script>
+  function openWa() {
+    const num = '27687661500';
+    const msg = encodeURIComponent("Hi EthelTon Tech Hub! I'm interested in getting a website built. Let's talk!");
+    window.open('https://wa.me/' + num + '?text=' + msg, '_blank');
+  }
+  document.getElementById('heroWaBtn').addEventListener('click', openWa);
+  document.getElementById('offerWaBtn').addEventListener('click', openWa);
+  document.getElementById('ctaWaBtn').addEventListener('click', openWa);
+</script>
+</body>
+</html>
